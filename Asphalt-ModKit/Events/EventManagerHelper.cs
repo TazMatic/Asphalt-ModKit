@@ -8,7 +8,8 @@ using Eco.Gameplay.Interactions;
 using Eco.Gameplay.Items;
 using Eco.Gameplay.Objects;
 using Eco.Gameplay.Players;
-using Eco.Gameplay.Stats.ConcretePlayerActions;
+//using Eco.Gameplay.Stats.ConcretePlayerActions;
+using Eco.Gameplay.GameActions;
 using Eco.Shared.Math;
 using Eco.Shared.Networking;
 using System;
@@ -22,7 +23,6 @@ namespace Asphalt.Events
         {
             switch (pEventType.Name) //We hope Event names are unique
             {
-
                 // Inventory Events
 
                 case nameof(InventoryChangeSelectedSlotEvent):
@@ -35,8 +35,8 @@ namespace Asphalt.Events
 
                 // Player Events
 
-                case nameof(PlayerBuyEvent):
-                    Injection.InstallCreateAtomicAction(typeof(BuyPlayerActionManager), typeof(PlayerBuyEventHelper));
+                case nameof(PlayerTradeEvent):
+                    Injection.InstallCreateAtomicAction(typeof(TradeAction), typeof(PlayerTradeEventHelper));
                     break;
                 case nameof(PlayerClaimPropertyEvent):
                     Injection.InstallCreateAtomicAction(typeof(ClaimPropertyPlayerActionManager), typeof(PlayerClaimPropertyEventHelper));

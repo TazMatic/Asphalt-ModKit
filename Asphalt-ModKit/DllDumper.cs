@@ -21,6 +21,7 @@ namespace Asphalt
             "Eco.Gameplay.dll",
             "Eco.ModKit.dll",
             "Eco.Shared.dll",
+            "Eco.Networking.ENet.dll",
             "Eco.Simulation.dll",
             "Eco.World.dll",
             "Eco.Stats.dll",
@@ -38,7 +39,7 @@ namespace Asphalt
             if (!configs.Config.PreserveGeneratedModsAssembly)
             {
                 configs.Config.PreserveGeneratedModsAssembly = true;
-                configs.Save();
+                configs.SaveAsync();
 
                 throw new Exception("PreserveGeneratedModsAssembly was false, please restart!");
             }

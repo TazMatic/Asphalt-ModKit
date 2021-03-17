@@ -1,4 +1,4 @@
-﻿using Harmony;
+﻿using HarmonyLib;
 using System;
 using System.Linq;
 using System.Reflection;
@@ -54,7 +54,7 @@ namespace Asphalt.Api.Util
             if (pMethodToReplace == null)
                 throw new ArgumentNullException(nameof(pMethodToReplace));
 
-            Asphalt.Harmony.Patch(pMethodToReplace, new HarmonyMethod(FindMethod(pHelperType, "Prefix")), new HarmonyMethod(FindMethod(pHelperType, "Postfix")));
+            Asphalt.harmonyInstance.Patch(pMethodToReplace, new HarmonyMethod(FindMethod(pHelperType, "Prefix")), new HarmonyMethod(FindMethod(pHelperType, "Postfix")));
 
             /*
              * 

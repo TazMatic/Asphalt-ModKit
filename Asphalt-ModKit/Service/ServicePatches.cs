@@ -6,7 +6,7 @@ using Eco.ModKit;
 using Eco.Server;
 using Eco.Shared.Localization;
 using Eco.Shared.Utils;
-using Harmony;
+using HarmonyLib;
 using System;
 using System.Reflection;
 using System.Threading;

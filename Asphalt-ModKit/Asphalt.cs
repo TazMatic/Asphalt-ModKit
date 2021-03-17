@@ -1,7 +1,7 @@
 ﻿using Eco.Core.Plugins.Interfaces;
 using Eco.Shared.Localization;
 using Eco.Shared.Utils;
-using Harmony;
+using HarmonyLib;
 using System;
 using System.IO;
 using System.Linq;
@@ -14,7 +14,7 @@ namespace Asphalt.Api
     {
         public static bool IsInitialized { get; protected set; }
 
-        public static HarmonyInstance Harmony { get; protected set; }
+        public static Harmony harmonyInstance { get; protected set; }
 
         static Asphalt()
         {
@@ -22,8 +22,8 @@ namespace Asphalt.Api
             {
                 AppDomain.CurrentDomain.AssemblyResolve += CurrentDomain_AssemblyResolve;
 
-                Harmony = HarmonyInstance.Create("com.eco.mods.asphalt");
-                Harmony.PatchAll(Assembly.GetExecutingAssembly());  //Patch injections for default Services onEnable etc.
+                harmonyInstance = new Harmony("com.eco.mods.asphalt");
+                harmonyInstance.PatchAll(Assembly.GetExecutingAssembly());  //Patch injections for default Services onEnable etc.
 
                 IsInitialized = true;
 
