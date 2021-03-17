@@ -2,29 +2,25 @@
 using Eco.Gameplay.Systems.Chat;
 using Eco.Shared.Localization;
 using Eco.Shared.Services;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+ 
 
 namespace Asphalt.Util
 {
     public static class PlayerExtensions
     {
-        public static void SendTemporaryMessage(this Player pPlayer, string message, ChatCategory category = ChatCategory.Info)
+        public static void SendMessage(this Player pPlayer, string message, MessageCategory category = MessageCategory.Info)
         {
-            pPlayer.SendTemporaryMessage(new LocString(message), category);
+            pPlayer.Msg(new LocString(message), category);
         }
 
-        public static void SendTemporaryError(this Player pPlayer, string message, ChatCategory category = ChatCategory.Info)
+        public static void SendTemporaryError(this Player pPlayer, string message, MessageCategory category = MessageCategory.Error)
         {
-            pPlayer.SendTemporaryError(new LocString(message), category);
+            pPlayer.Msg(new LocString(message), category);
         }
 
-        public static void SendMessage(this User pUser, string pMessage, bool temporary = true, DefaultChatTags tag = DefaultChatTags.Notifications, ChatCategory category = ChatCategory.Info)
+        public static void SendTemporaryMessage(this User pUser, string pMessage, bool temporary = true, DefaultChatTags tag = DefaultChatTags.Notifications, MessageCategory category = MessageCategory.Info)
         {
-            ChatManager.ServerMessageToPlayer(new LocString(pMessage), pUser, temporary, tag, category);
+            ChatManager.ServerMessageToPlayer(new LocString(pMessage), pUser, tag, category, temporary);
         }
     }
 }
