@@ -34,30 +34,33 @@ namespace Asphalt.Events
                     break;
 
                 // Player Events
-
+                
                 case nameof(PlayerTradeEvent):
                     Injection.InstallCreateAtomicAction(typeof(TradeAction), typeof(PlayerTradeEventHelper));
                     break;
                 case nameof(PlayerClaimPropertyEvent):
-                    Injection.InstallCreateAtomicAction(typeof(ClaimPropertyPlayerActionManager), typeof(PlayerClaimPropertyEventHelper));
+                    Injection.InstallCreateAtomicAction(typeof(ClaimOrUnclaimProperty), typeof(PlayerClaimPropertyEventHelper));
                     break;
                 case nameof(PlayerCompleteContractEvent):
-                    Injection.InstallCreateAtomicAction(typeof(CompleteContractPlayerActionManager), typeof(PlayerCompleteContractEventHelper));
+                    Injection.InstallCreateAtomicAction(typeof(CompletedContract), typeof(PlayerCompleteContractEventHelper));
                     break;
                 case nameof(PlayerCraftEvent):
-                    Injection.InstallCreateAtomicAction(typeof(CraftPlayerActionManager), typeof(PlayerCraftEventHelper));
+                    Injection.InstallCreateAtomicAction(typeof(ItemCraftedAction), typeof(PlayerCraftEventHelper));
                     break;
                 case nameof(PlayerEatEvent):
                     Injection.InstallWithOriginalHelperPublicInstance(typeof(Stomach), typeof(PlayerEatEventHelper), "Eat");
                     break;
                 case nameof(PlayerGainSkillEvent):
-                    Injection.InstallCreateAtomicAction(typeof(GainSkillPlayerActionManager), typeof(PlayerGainSkillEventHelper));
+                    Injection.InstallCreateAtomicAction(typeof(GainSpecialty), typeof(PlayerGainSkillEventHelper));
+                    break;
+                case nameof(PlayerGainProfessionEvent):
+                    Injection.InstallCreateAtomicAction(typeof(GainProfession), typeof(PlayerGainProfessionEventHelper));
                     break;
                 case nameof(PlayerGetElectedEvent):
-                    Injection.InstallCreateAtomicAction(typeof(GetElectedPlayerActionManager), typeof(PlayerGetElectedEventHelper));
+                    Injection.InstallCreateAtomicAction(typeof(WonElection), typeof(PlayerGetElectedEventHelper));
                     break;
                 case nameof(PlayerHarvestEvent):
-                    Injection.InstallCreateAtomicAction(typeof(HarvestPlayerActionManager), typeof(PlayerHarvestEventHelper));
+                    Injection.InstallCreateAtomicAction(typeof(HarvestOrHunt), typeof(PlayerHarvestEventHelper));
                     break;
                 case nameof(PlayerInteractEvent):
                     Injection.InstallWithOriginalHelperPublicStatic(typeof(InteractionExtensions), typeof(PlayerInteractEventHelper), "MakeContext");
@@ -69,39 +72,33 @@ namespace Asphalt.Events
                     Injection.InstallWithOriginalHelperPublicInstance(typeof(User), typeof(PlayerLogoutEventHelper), "Logout");
                     break;
                 case nameof(PlayerPayTaxEvent):
-                    Injection.InstallCreateAtomicAction(typeof(PayTaxPlayerActionManager), typeof(PlayerPayTaxEventHelper));
+                    Injection.InstallCreateAtomicAction(typeof(PayTax), typeof(PlayerPayTaxEventHelper));
                     break;
-                case nameof(PlayerPickUpEvent):
+                case nameof(PlayerPickUpOrPlaceObjectEvent):
                     //Injection.InstallCreateAtomicAction(typeof(PickUpPlayerActionManager), typeof(PlayerPickUpEventHelper));
-                    Injection.InstallWithOriginalHelperPublicInstance(typeof(PickUpPlayerActionManager), typeof(PlayerPickUpEventHelper1), "CreateAtomicAction", new Type[] { typeof(User), typeof(Item), typeof(Vector3i) });
+                    Injection.InstallWithOriginalHelperPublicInstance(typeof(PlaceOrPickUpObject), typeof(PlayerPickUpOrPlaceObjectEventHelper), "CreateAtomicAction", new Type[] { typeof(User), typeof(Item), typeof(Vector3i) });
                     //Injection.InstallWithOriginalHelperPublicInstance(typeof(PickUpPlayerActionManager), typeof(PlayerPickUpEventHelper2), "CreateAtomicAction", new Type[] { typeof(User), typeof(Type), typeof(Vector3i) });
                     break;
-                case nameof(PlayerPlaceEvent):
-                    Injection.InstallCreateAtomicAction(typeof(PlacePlayerActionManager), typeof(PlayerPlaceEventHelper));
-                    break;
-                case nameof(PlayerProposeVoteEvent):
+                /*case nameof(PlayerProposeVoteEvent):
                     Injection.InstallCreateAtomicAction(typeof(ProposeVotePlayerActionManager), typeof(PlayerProposeVoteEventHelper));
-                    break;
+                    break;*/
                 case nameof(PlayerReceiveGovernmentFundsEvent):
-                    Injection.InstallCreateAtomicAction(typeof(ReceiveGovernmentFundsPlayerActionManager), typeof(PlayerReceiveGovernmentFundsEventHelper));
+                    Injection.InstallCreateAtomicAction(typeof(ReceiveGovernmentFunds), typeof(PlayerReceiveGovernmentFundsEventHelper));
                     break;
                 case nameof(PlayerRunForElectionEvent):
-                    Injection.InstallCreateAtomicAction(typeof(RunForElectionPlayerActionManager), typeof(PlayerRunForElectionEventHelper));
-                    break;
-                case nameof(PlayerSellEvent):
-                    Injection.InstallCreateAtomicAction(typeof(SellPlayerActionManager), typeof(PlayerSellEventHelper));
+                    Injection.InstallCreateAtomicAction(typeof(ElectionAction), typeof(PlayerRunForElectionEventHelper));
                     break;
                 case nameof(PlayerSendMessageEvent):
-                    Injection.InstallCreateAtomicAction(typeof(MessagePlayerActionManager), typeof(PlayerSendMessageEventHelper));
+                    Injection.InstallCreateAtomicAction(typeof(ChatSent), typeof(PlayerSendMessageEventHelper));
                     break;
                 case nameof(PlayerTeleportEvent):
                     Injection.InstallWithOriginalHelperPublicInstance(typeof(Player), typeof(PlayerTeleportEventHelper), "SetPosition");
                     break;
                 case nameof(PlayerUnlearnSkillEvent):
-                    Injection.InstallCreateAtomicAction(typeof(UnlearnSkillPlayerActionManager), typeof(PlayerUnlearnSkillEventHelper));
+                    Injection.InstallCreateAtomicAction(typeof(SkillAction), typeof(PlayerUnlearnSkillEventHelper));
                     break;
                 case nameof(PlayerVoteEvent):
-                    Injection.InstallCreateAtomicAction(typeof(VotePlayerActionManager), typeof(PlayerVoteEventHelper));
+                    Injection.InstallCreateAtomicAction(typeof(Vote), typeof(PlayerVoteEventHelper));
                     break;
 
                 // RPC Events
@@ -112,7 +109,7 @@ namespace Asphalt.Events
                 // World Events
 
                 case nameof(WorldPolluteEvent):
-                    Injection.InstallCreateAtomicAction(typeof(PolluteAirPlayerActionManager), typeof(WorldPolluteEventHelper));
+                    Injection.InstallCreateAtomicAction(typeof(PolluteAir), typeof(WorldPolluteEventHelper));
                     break;
 
                 // WorldObject Events

@@ -8,7 +8,7 @@ using System;
 
 namespace Asphalt.Api.Event.PlayerEvents
 {
-    public class PlayerPickUpEvent : CancellableEvent
+    public class PlayerPickUpOrPlaceObjectEvent : CancellableEvent
     {
         public Player Player { get; set; }
 
@@ -18,7 +18,7 @@ namespace Asphalt.Api.Event.PlayerEvents
 
         public Vector3i Position { get; set; }
 
-        public PlayerPickUpEvent(ref Player pPlayer, ref Item pPickedUpItem, ref Vector3i pPosition) : base()
+        public PlayerPickUpOrPlaceObjectEvent(ref Player pPlayer, ref Item pPickedUpItem, ref Vector3i pPosition) : base()
         {
             this.Player = pPlayer;
             this.PickedUpItem = pPickedUpItem;
@@ -26,7 +26,7 @@ namespace Asphalt.Api.Event.PlayerEvents
             this.Position = pPosition;
         }
 
-        public PlayerPickUpEvent(ref Player pPlayer, ref Type pItemType, ref Vector3i pPosition) : base()
+        public PlayerPickUpOrPlaceObjectEvent(ref Player pPlayer, ref Type pItemType, ref Vector3i pPosition) : base()
         {
             this.Player = pPlayer;
             this.PickedUpItem = null;
@@ -35,11 +35,11 @@ namespace Asphalt.Api.Event.PlayerEvents
         }
     }
 
-    internal class PlayerPickUpEventHelper1
+    internal class PlayerPickUpOrPlaceObjectEventHelper
     {
         public static bool Prefix(ref Player actor, ref Item pickedUpItem, ref Vector3i position, ref IAtomicAction __result)
         {
-            PlayerPickUpEvent cEvent = new PlayerPickUpEvent(ref actor, ref pickedUpItem, ref position);
+            PlayerPickUpOrPlaceObjectEvent cEvent = new PlayerPickUpOrPlaceObjectEvent(ref actor, ref pickedUpItem, ref position);
             IEvent iEvent = cEvent;
 
             EventManager.CallEvent(ref iEvent);
@@ -58,7 +58,7 @@ namespace Asphalt.Api.Event.PlayerEvents
     {
         public static bool Prefix(ref Player actor, ref Type itemType, ref Vector3i position, ref IAtomicAction __result)
         {
-            PlayerPickUpEvent cEvent = new PlayerPickUpEvent(ref actor, ref itemType, ref position);
+            PlayerPickUpOrPlaceObjectEvent cEvent = new PlayerPickUpOrPlaceObjectEvent(ref actor, ref itemType, ref position);
             IEvent iEvent = cEvent;
 
             EventManager.CallEvent(ref iEvent);
