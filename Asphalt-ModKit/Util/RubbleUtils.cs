@@ -4,6 +4,7 @@
  * Created by Kirthos 04/29/2018
  */
 
+using Eco.Core.IoC;
 using Eco.Gameplay.Auth;
 using Eco.Gameplay.Items;
 using Eco.Gameplay.Objects;
@@ -88,7 +89,7 @@ namespace Asphalt.Utils
                     {
                         continue;
                     }
-                    if (AuthManager.IsAuthorized(obj.Position.XZi, user))
+                    if (ServiceHolder<IAuthManager>.Obj.IsAuthorized(obj.Position.XZi, user))
                     {
                         if (obj.TryPickup(user.Player, user.Inventory).IsSuccess)
                         {

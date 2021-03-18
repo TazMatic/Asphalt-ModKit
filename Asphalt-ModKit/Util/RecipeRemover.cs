@@ -9,7 +9,7 @@ using Eco.Mods.TechTree;
 using Eco.Shared.Items;
 using Eco.Shared.Localization;
 using Eco.Shared.Utils;
-using Harmony;
+using HarmonyLib;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -62,7 +62,7 @@ namespace Asphalt.Utils
                 recipeToTable[pTargetRecipeType].Remove(targetTable);
 
                 // Remove the recipe from the item to recipe dictionary
-                targetRecipe?.Products.ForEach(product => itemToRecipe[product.Item.Type].Remove(targetRecipe));
+                targetRecipe.Items.ForEach(product => itemToRecipe[product.Item.Type].Remove(targetRecipe));
 
                 // Remove the table from the list of table
                 // Only if there is no more recipe inside the table
@@ -115,7 +115,7 @@ namespace Asphalt.Utils
                 }
             }
 
-            var allRecipes = Recipe.AllRecipes.ToList();
+            var allRecipes = RecipeFamily.AllRecipes.ToList();
             allRecipes.RemoveAll(r => r.GetType() == pTargetRecipeType);
             typeof(Recipe).GetProperty("AllRecipes", BindingFlags.Static | BindingFlags.Public).SetValue(null, allRecipes.ToArray());
 

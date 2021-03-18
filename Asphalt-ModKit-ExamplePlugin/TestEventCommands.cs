@@ -10,7 +10,7 @@ namespace EcoTestEventPlugin
 {
     public class TestEventCommands: IChatCommandHandler
     {
-
+        /*
         [ChatCommand("registerevents", "Registers all Asphalt TestEvents", ChatAuthorizationLevel.Admin)]
         public static void RegisterTestEvents()
         {
@@ -22,5 +22,6 @@ namespace EcoTestEventPlugin
         {
      //       EventManager.UnregisterListener(EcoTestEventPlugin.TestListener);
         }
+        */
     }
 }

@@ -1,4 +1,5 @@
 ﻿using Asphalt.Events;
+using Eco.Core.IoC;
 using Eco.Gameplay.Interactions;
 using Eco.Gameplay.Players;
 using Eco.Shared.Items;
@@ -34,9 +35,8 @@ namespace Asphalt.Api.Event.PlayerEvents
                 //we can not really cancel the event, but we remove all targets ;)
 
                 //context.Target, context.SelectedItem, context.InteractableBlock, context.CarriedItem                    
-
                 __result.Target = null;
-                __result.SelectedItem = null;
+                //__result.SelectedItem = null; //This shouldnt matter since verything else is null but SelectedItem is readOnly
                 __result.Block = null;  // InteractableBlock
                 __result.CarriedItem = null;
 
@@ -44,10 +44,8 @@ namespace Asphalt.Api.Event.PlayerEvents
                     __result.Player.SendCorrection(info);
 
                 //remove activity, because eco will add it
-                WorldLayerManager.GetLayer(LayerNames.PlayerActivity)?.FuncAtWorldPos(__result.Player.Position.XZi, (pos, val) => val = Math.Max(0, val - 0.001f));
+                ServiceHolder<WorldLayerManager>.Obj.GetLayer(LayerNames.PlayerActivity)?.FuncAtWorldPos(__result.Player.Position.XZi, (pos, val) => val = Math.Max(0, val - 0.001f));
             }
         }
-
-
     }
 }

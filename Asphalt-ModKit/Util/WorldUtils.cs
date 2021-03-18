@@ -4,6 +4,7 @@
  * Created by Kirthos 05/04/2018
  */
 
+using Eco.Core.IoC;
 using Eco.Gameplay.Auth;
 using Eco.Gameplay.Interactions;
 using Eco.Gameplay.Objects;
@@ -21,7 +22,6 @@ using System.Runtime.CompilerServices;
 
 namespace Asphalt.Util
 {
-
     //WARNING! Some methods of this file are deprecated and may be changed or deleted in a future update!
     public static class WorldUtils
     {
@@ -104,9 +104,9 @@ namespace Asphalt.Util
         public static List<WorldObject> GetNeightbourgWorldObject<T>(Vector3i position) where T : WorldObject
         {
             List<WorldObject> objects = new List<WorldObject>();
-            foreach (WorldObject obj in WorldObjectManager.All)
+            WorldObjectManager.ForEach(worldObject =>
             {
-                if (obj is T)
+                if (worldObject is T)
                 {
                     for (int i = -1; i <= 1; i++)
                     {
@@ -115,15 +115,16 @@ namespace Asphalt.Util
                             for (int k = -1; k <= 1; k++)
                             {
                                 Vector3i newPos = new Vector3i(position.x + i, position.y + j, position.z + k);
-                                if (obj.Position3i == newPos)
+                                if (worldObject.Position3i == newPos)
                                 {
-                                    objects.Add(obj);
+                                    objects.Add(worldObject);
                                 }
                             }
                         }
                     }
                 }
-            }
+            });
+
             return objects;
         }
 
@@ -140,17 +141,19 @@ namespace Asphalt.Util
                     for (int j = -range; j < range; j++)
                     {
                         if (i == 0 && j == 0) continue;
-                        Vector3i positionAbove = World.GetTopPos(new Vector2i(position.x + i, position.z + j)) + Vector3i.Up;
+                        Vector3i positionAbove = World.GetTopGroundPos(new Vector2i(position.x + i, position.z + j)) + Vector3i.Up;
                         Block blockAbove = World.GetBlockProbablyTop(positionAbove);
                         if (blockAbove is T)
                         {
                             if (positionAbove != position && Vector3i.Distance(positionAbove, position) < range)
                             {
-                                InteractionInfo info = new InteractionInfo();
-                                info.Method = InteractionMethod.Right;
-                                info.BlockPosition = positionAbove;
+                                InteractionInfo info = new InteractionInfo
+                                {
+                                    Method = InteractionMethod.Right,
+                                    BlockPosition = positionAbove
+                                };
                                 InteractionContext context = info.MakeContext(user.Player);
-                                if (AuthManager.IsAuthorized(context))
+                                if (ServiceHolder<IAuthManager>.Obj.IsAuthorized(context))
                                 {
                                     blockLists.Add(blockAbove as T);
                                 }
@@ -179,7 +182,7 @@ namespace Asphalt.Util
                     for (int j = -range; j < range; j++)
                     {
                         if (i == 0 && j == 0) continue;
-                        Vector3i positionAbove = World.GetTopPos(new Vector2i(position.x + i, position.z + j)) + Vector3i.Up;
+                        Vector3i positionAbove = World.GetTopGroundPos(new Vector2i(position.x + i, position.z + j)) + Vector3i.Up;
                         Block blockAbove = World.GetBlockProbablyTop(positionAbove);
                         if (blockAbove is T)
                         {
@@ -189,7 +192,7 @@ namespace Asphalt.Util
                                 info.Method = InteractionMethod.Right;
                                 info.BlockPosition = positionAbove;
                                 InteractionContext context = info.MakeContext(user.Player);
-                                if (AuthManager.IsAuthorized(context))
+                                if (ServiceHolder<IAuthManager>.Obj.IsAuthorized(context))
                                 {
                                     blockLists.Add(positionAbove);
                                 }

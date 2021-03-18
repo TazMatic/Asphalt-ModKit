@@ -4,6 +4,7 @@
  * Created by Kirthos 05/04/2018
  */
 
+using Eco.Core.IoC;
 using Eco.Gameplay.Components;
 using Eco.Gameplay.Items;
 using Eco.Gameplay.Objects;
@@ -102,7 +103,7 @@ namespace Asphalt.Utils
                     return obj;
                 }
             }
-            foreach (WorldObject obj in WorldObjectManager.All)
+            foreach (WorldObject obj in ServiceHolder<WorldObjectManager>.Obj.All)
             {
                 if (obj.GetComponent<PublicStorageComponent>() != null)
                 {

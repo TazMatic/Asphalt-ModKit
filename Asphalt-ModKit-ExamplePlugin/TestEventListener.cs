@@ -14,10 +14,13 @@ namespace EcoTestEventPlugin
 {
     public class TestEventListener
     {
-
+        [EventHandler]
+        public void PlayerBuyEvent(PlayerTradeEvent evt)
+        {
+            Console.WriteLine(EventUtil.EventToString(evt));
+        }
+        /*
         // Inventory Events
-
-        
         [EventHandler]
         public void InventoryChangeSelectedSlotEvent(InventoryChangeSelectedSlotEvent evt)
         {
@@ -31,12 +34,6 @@ namespace EcoTestEventPlugin
         }
 
         // Player Events
-
-        [EventHandler]
-        public void PlayerBuyEvent(PlayerBuyEvent evt)
-        {
-            Console.WriteLine(EventUtil.EventToString(evt));
-        }
 
         [EventHandler]
         public void PlayerClaimPropertyEvent(PlayerClaimPropertyEvent evt)
@@ -107,7 +104,7 @@ namespace EcoTestEventPlugin
         }
 
         [EventHandler]
-        public void PlayerPickUpEvent(PlayerPickUpEvent evt)
+        public void PlayerPickUpEvent(PlayerPickUpOrPlaceObjectEvent evt)
         {
             Console.WriteLine(EventUtil.EventToString(evt));
         }
@@ -233,6 +230,6 @@ namespace EcoTestEventPlugin
             Console.WriteLine(EventUtil.EventToString(evt));
         }
 
-
+        */
     }
 }
